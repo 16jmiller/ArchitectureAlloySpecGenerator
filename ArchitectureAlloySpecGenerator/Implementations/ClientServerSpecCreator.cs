@@ -192,6 +192,8 @@ namespace ArchitectureAlloySpecGenerator.Implementations
             cs_spec.Append("\tone System\n");
             cs_spec.Append("}\n\n");
             cs_spec.Append("run show\n\n");
+
+            return cs_spec;
         }
     }
 }
