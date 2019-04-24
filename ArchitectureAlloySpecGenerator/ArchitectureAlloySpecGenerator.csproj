@@ -159,6 +159,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\Libraries\JQuery\jquery-1.10.2.min.map" />
+    <Content Include="Views\Home\Partials\_CanvasToolbar.cshtml" />
+    <Content Include="Views\Home\Partials\_ArchitectureElementTray.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

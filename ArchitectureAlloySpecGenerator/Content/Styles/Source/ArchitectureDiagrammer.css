@@ -1,5 +1,5 @@
 ﻿#canvas-container {
-    height: calc(100% - 64px);
+    height: calc(100%);
     overflow: scroll;
 }
 
