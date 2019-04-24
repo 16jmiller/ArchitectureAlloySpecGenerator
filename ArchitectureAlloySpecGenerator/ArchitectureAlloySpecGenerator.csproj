@@ -138,6 +138,7 @@
     <Content Include="Scripts\Libraries\JQuery\jquery-1.10.2.js" />
     <Content Include="Scripts\Libraries\JQuery\jquery-1.10.2.min.js" />
     <Content Include="Scripts\Libraries\Modernizr\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Source\Diagrammer.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -172,7 +173,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\" />
     <Folder Include="Models\" />
-    <Folder Include="Scripts\Source\" />
+    <Folder Include="Scripts\Source\Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

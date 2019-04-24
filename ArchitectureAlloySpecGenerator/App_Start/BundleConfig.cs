@@ -19,6 +19,9 @@ namespace ArchitectureAlloySpecGenerator
             bundles.Add(new ScriptBundle("~/bundles/fabricjs").Include(
                 "~/Scripts/Libraries/FabricJS/fabric.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/diagrammer").Include(
+                "~/Scripts/Source/Diagrammer.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/Styles/Libraries/Bootstrap/bootstrap.min.css",
                 "~/Content/Styles/Source/Site.css",
