@@ -147,6 +147,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Implementations\ClientServerSpecCreator.cs" />
+    <Compile Include="Interfaces\IClientServerSpecCreator.cs" />
+    <Compile Include="Models\ClientServerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +164,7 @@
     <Content Include="Scripts\Libraries\JQuery\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Partials\_CanvasToolbar.cshtml" />
     <Content Include="Views\Home\Partials\_ArchitectureElementTray.cshtml" />
+    <Content Include="Views\Default\Submit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
