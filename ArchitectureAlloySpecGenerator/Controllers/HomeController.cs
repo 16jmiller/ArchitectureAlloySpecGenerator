@@ -28,9 +28,25 @@ namespace ArchitectureAlloySpecGenerator.Controllers
             // If Client Server:
             spec = CnsSpecCreater.CreateSpec(system);
 
-            // Abbie will output the spec to the file here:
-
+            saveFileClientSide(spec);
+           
             return View();
         }
+
+        private void saveFileClientSide(StringBuilder sb)
+        {
+            var contentType = "text/plain";
+            var fileName = "alloySpecification.txt";
+            var header = "attachment;Filename=" + fileName;
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.ContentType = contentType;
+            Response.AppendHeader("Content-Disposition", header);
+
+            Response.Write(sb.ToString());
+            Response.Flush();
+        }
     }
+
 }
