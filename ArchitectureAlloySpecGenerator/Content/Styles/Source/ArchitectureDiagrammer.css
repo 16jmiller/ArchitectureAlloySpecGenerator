@@ -1,0 +1,81 @@
+﻿#canvas-container {
+    height: calc(100%);
+    overflow: scroll;
+}
+
+#canvas {
+    width: 2000px;
+    height: 1500px;
+}
+
+#workspace {
+    height: calc(100vh - 37px);
+    border-top: 1px solid black;
+}
+/*
+    #sign-tray {
+    border-top: 1px solid black;
+    box-sizing: border-box;
+    height: 64px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.sign-tray-image {
+    padding: 0 6px;
+    cursor: pointer;
+    height: 80%;
+}
+
+*/
+
+#element-editor {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid black;
+}
+
+#editor-properties {
+    padding: 0 1vw 16px 1vw;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    flex-grow: 1;
+}
+
+#editor-properties input, select, textarea {
+    max-width: 100%;
+}
+
+#editor-properties .editor-field {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    line-height: 1;
+}
+
+#element-editor-canvas-container {
+    border: 1px solid black;
+}
+
+#btn-export-canvas-item {
+    height: 48px;
+    flex-shrink: 0;
+}
+
+.m-0 {
+    margin: 0;
+}
+
+.p-0 {
+    padding: 0;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+.w-100 {
+    width: 100%;
+}

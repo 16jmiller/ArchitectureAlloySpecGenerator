@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<html class="m-0 p-0">
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/bundles/fontawesome")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/fabricjs")
+</head>
+
+<body class="m-0 p-0">
+    @Html.Partial("Partials/_CanvasToolbar")
+    <div id="workspace" class="container-fluid">
+        <div class="row h-100">
+            <div id="diagrammer" class="col-sm-9 p-0 h-100">
+                <div id="canvas-container">
+                    <canvas id="canvas"></canvas>
+                </div>
+            </div>
+            <div class="col-sm-3 p-0 h-100">
+                @Html.Partial("Partials/_ArchitectureElementTray")
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
