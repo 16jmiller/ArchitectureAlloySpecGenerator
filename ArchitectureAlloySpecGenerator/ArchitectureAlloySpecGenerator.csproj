@@ -138,6 +138,7 @@
     <Content Include="Scripts\Libraries\JQuery\jquery-1.10.2.js" />
     <Content Include="Scripts\Libraries\JQuery\jquery-1.10.2.min.js" />
     <Content Include="Scripts\Libraries\Modernizr\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Source\DiagramEditor.js" />
     <Content Include="Scripts\Source\Diagrammer.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -161,7 +162,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\Libraries\JQuery\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Partials\_CanvasToolbar.cshtml" />
-    <Content Include="Views\Home\Partials\_ArchitectureElementTray.cshtml" />
+    <Content Include="Views\Home\Partials\_DiagramEditor.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

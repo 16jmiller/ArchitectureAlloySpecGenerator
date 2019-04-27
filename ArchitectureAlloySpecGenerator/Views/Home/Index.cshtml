@@ -9,13 +9,14 @@
 <head>
     <meta name="viewport" content="width=device-width" />
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     @Styles.Render("~/Content/css")
     @Styles.Render("~/bundles/fontawesome")
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/fabricjs")    
+    @Scripts.Render("~/bundles/fabricjs")
 
 </head>
 
@@ -29,7 +30,7 @@
                 </div>
             </div>
             <div class="col-sm-3 p-0 h-100">
-                @Html.Partial("Partials/_ArchitectureElementTray")
+                @Html.Partial("Partials/_DiagramEditor")
             </div>
         </div>
     </div>
