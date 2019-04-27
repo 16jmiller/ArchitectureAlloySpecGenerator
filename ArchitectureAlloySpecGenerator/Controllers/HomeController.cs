@@ -27,6 +27,9 @@ namespace ArchitectureAlloySpecGenerator.Controllers
 
             StringBuilder spec = new StringBuilder();
 
+            //If PipeFilter
+            PipeFilterSystemModel system = new PipeFilterSystemModel();
+
             // If Client Server:
             ClientServerSystemModel system = new ClientServerSystemModel();
             spec = CnsSpecCreater.CreateSpec(system);
