@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,6 +7,7 @@ using System.Web.Mvc;
 using ArchitectureAlloySpecGenerator.Interfaces;
 using ArchitectureAlloySpecGenerator.Models;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace ArchitectureAlloySpecGenerator.Controllers
 {
@@ -19,19 +21,35 @@ namespace ArchitectureAlloySpecGenerator.Controllers
             return View();
         }
 
-        public ActionResult Submit()
+        [HttpPost]
+        public ActionResult Submit(JsonResult content)
         {
-            ClientServerSystemModel system = new ClientServerSystemModel();
+
             StringBuilder spec = new StringBuilder();
-            // Abbie will create the system from Trent's json object here:
 
             // If Client Server:
+            ClientServerSystemModel system = new ClientServerSystemModel();
             spec = CnsSpecCreater.CreateSpec(system);
 
             saveFileClientSide(spec);
            
-            return View();
+            return new EmptyResult();
         }
+
+        public void LoadJson()
+        {
+            ClientServerSystemModel arch = null;
+            using (StreamReader r = new StreamReader("file.json"))
+            {
+                string json = r.ReadToEnd();
+                if (json.Contains("ClientServer"))
+                {
+                    arch = JsonConvert.DeserializeObject<ClientServerSystemModel>(json);
+                }
+            }
+            return;
+        }
+
 
         private void saveFileClientSide(StringBuilder sb)
         {
