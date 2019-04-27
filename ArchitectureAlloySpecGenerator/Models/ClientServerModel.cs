@@ -5,24 +5,24 @@ using System.Web;
 
 namespace ArchitectureAlloySpecGenerator.Models
 {
-    public class Component
+    public class CnsComponent
     {
         public string Name { get; set; }
     }
 
-    public class Connector
+    public class CnsConnector
     {
         public string Name { get; set; }
         public List<Requester> Requesters { get; set; }
         public List<Provider> Providers { get; set; }
     }
 
-    public class Port
+    public class CnsPort
     {
         public string Name { get; set; }
     }
 
-    public class Role
+    public class CnsRole
     {
         public string Name { get; set; }
     }
@@ -30,28 +30,28 @@ namespace ArchitectureAlloySpecGenerator.Models
     public class ClientServerSystemModel
     {
         public string Name { get; set; }
-        public List<Connector> Connectors { get; set; }
-        public List<Server> Servers { get; set; }
-        public List<Client> Clients { get; set; }
-        public Dictionary<Role, Port> Attachments { get; set; }
+        public List<CnsConnector> Connectors { get; set; }
+        public List<CnsServer> Servers { get; set; }
+        public List<CnsClient> Clients { get; set; }
+        public Dictionary<CnsRole, CnsPort> Attachments { get; set; }
     }
 
-    public class Server : Component
+    public class CnsServer : CnsComponent
     {
         public List<ClientAccess> ClientAccesses { get; set; }
     }
 
-    public class Client : Component
+    public class CnsClient : CnsComponent
     {
-        public List<ServerRequest> ServerRequests { get; set; }
+        public List<CnsServerRequest> ServerRequests { get; set; }
     }
 
-    public class ClientAccess : Port { }
+    public class CnsClientAccess : CnsPort { }
 
-    public class Provider : Role { }
+    public class CnsProvider : CnsRole { }
 
-    public class Requester : Role { }
+    public class CnsRequester : CnsRole { }
 
-    public class ServerRequest : Port { }
+    public class CnsServerRequest : CnsPort { }
 
 }

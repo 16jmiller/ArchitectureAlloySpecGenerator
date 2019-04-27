@@ -26,14 +26,14 @@ namespace ArchitectureAlloySpecGenerator.Implementations
             cs_spec.Append(" extends System{}\n\n");
 
             // For each Server:
-            foreach (Server s in system.Servers)
+            foreach (CnsServer s in system.Servers)
             {
                 cs_spec.Append("one sig ");
                 cs_spec.Append(s.Name);
                 cs_spec.Append(" extends Server{}{\n");
 
                 int count_ports = 0;
-                foreach (ClientAccess ca in s.ClientAccesses)
+                foreach (CnsClientAccess ca in s.ClientAccesses)
                 {
                     if(count_ports == 0)
                     {
@@ -51,14 +51,14 @@ namespace ArchitectureAlloySpecGenerator.Implementations
             }
 
             // For each CnsConnector:
-            foreach (Connector c in system.Connectors)
+            foreach (CnsConnector c in system.Connectors)
             {
                 cs_spec.Append("one sig ");
                 cs_spec.Append (c.Name);
                 cs_spec.Append(" extends CnsConnector{}{\n");
 
                 int count_roles = 0;
-                foreach (Requester r in c.Requesters)
+                foreach (CnsRequester r in c.Requesters)
                 {
                     if (count_roles == 0)
                     {
@@ -72,7 +72,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                         cs_spec.Append(r.Name);
                     }
                 }
-                foreach (Provider p in c.Providers)
+                foreach (CnsProvider p in c.Providers)
                 {
                     if (count_roles == 0)
                     {
@@ -90,14 +90,14 @@ namespace ArchitectureAlloySpecGenerator.Implementations
             }
 
             // For each Client:
-            foreach (Client c in system.Clients)
+            foreach (CnsClient c in system.Clients)
             {
                 cs_spec.Append("one sig ");
                 cs_spec.Append(c.Name);
                 cs_spec.Append(" extends Client{}{\n");
 
                 int count_ports = 0;
-                foreach (ServerRequest sr in c.ServerRequests)
+                foreach (CnsServerRequest sr in c.ServerRequests)
                 {
                     if (count_ports == 0)
                     {
@@ -115,9 +115,9 @@ namespace ArchitectureAlloySpecGenerator.Implementations
             }
 
             // For each ClientAccess:
-            foreach (Server s in system.Servers)
+            foreach (CnsServer s in system.Servers)
             {
-                foreach (ClientAccess ca in s.ClientAccesses)
+                foreach (CnsClientAccess ca in s.ClientAccesses)
                 {
                     cs_spec.Append("one sig ");
                     cs_spec.Append(ca.Name);
@@ -126,10 +126,10 @@ namespace ArchitectureAlloySpecGenerator.Implementations
             }
 
             // For each Provider + Requester:
-            foreach (Connector c in system.Connectors)
+            foreach (CnsConnector c in system.Connectors)
             {
                 // Providers:
-                foreach (Provider p in c.Providers)
+                foreach (CnsProvider p in c.Providers)
                 {
                     cs_spec.Append("one sig ");
                     cs_spec.Append(p.Name);
@@ -137,7 +137,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                 }
 
                 // Requesters:
-                foreach (Requester r in c.Requesters)
+                foreach (CnsRequester r in c.Requesters)
                 {
                     cs_spec.Append("one sig ");
                     cs_spec.Append(r.Name);
@@ -146,9 +146,9 @@ namespace ArchitectureAlloySpecGenerator.Implementations
             }
 
             // For each ServerRequest:
-            foreach (Client c in system.Clients)
+            foreach (CnsClient c in system.Clients)
             {
-                foreach (ServerRequest sr in c.ServerRequests)
+                foreach (CnsServerRequest sr in c.ServerRequests)
                 {
                     cs_spec.Append("one sig ");
                     cs_spec.Append(sr.Name);
@@ -165,7 +165,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                 cs_spec.Append(".attachments =\n");
 
                 int attachment_count = 0;
-                foreach(KeyValuePair<Role, Port> a in system.Attachments)
+                foreach(KeyValuePair<CnsRole, CnsPort> a in system.Attachments)
                 {
                     if(attachment_count == 0)
                     {
