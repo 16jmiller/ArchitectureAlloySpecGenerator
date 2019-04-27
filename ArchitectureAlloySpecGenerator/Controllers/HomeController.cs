@@ -13,7 +13,8 @@ namespace ArchitectureAlloySpecGenerator.Controllers
 {
     public class HomeController : Controller
     {
-        private IClientServerSpecCreator CnsSpecCreater;
+        private IClientServerSpecCreator CnsSpecCreator;
+        private IPipeFilterSpecCreator PnfSpecCreator;
 
         // GET: Default
         public ActionResult Index()
@@ -22,35 +23,25 @@ namespace ArchitectureAlloySpecGenerator.Controllers
         }
 
         [HttpPost]
-        public ActionResult Submit(JsonResult content)
+        public ActionResult Submit()
         {
-
             StringBuilder spec = new StringBuilder();
+            String json = new StreamReader(this.Request.InputStream).ReadToEnd();
 
-            //If PipeFilter
-            PipeFilterSystemModel system = new PipeFilterSystemModel();
-
-            // If Client Server:
-            ClientServerSystemModel system = new ClientServerSystemModel();
-            spec = CnsSpecCreater.CreateSpec(system);
+            if (json.Contains("ClientServer"))
+            {
+                var system = JsonConvert.DeserializeObject<ClientServerSystemModel>(json);
+                spec = CnsSpecCreator.CreateSpec(system);
+            }
+            else if (json.Contains("PipeAndFilter"))
+            {
+                var system = JsonConvert.DeserializeObject<PipeFilterSystemModel>(json);
+                spec = PnfSpecCreator.CreateSpec(system);
+            }
 
             saveFileClientSide(spec);
-           
-            return new EmptyResult();
-        }
 
-        public void LoadJson()
-        {
-            ClientServerSystemModel arch = null;
-            using (StreamReader r = new StreamReader("file.json"))
-            {
-                string json = r.ReadToEnd();
-                if (json.Contains("ClientServer"))
-                {
-                    arch = JsonConvert.DeserializeObject<ClientServerSystemModel>(json);
-                }
-            }
-            return;
+            return new EmptyResult();
         }
 
 
