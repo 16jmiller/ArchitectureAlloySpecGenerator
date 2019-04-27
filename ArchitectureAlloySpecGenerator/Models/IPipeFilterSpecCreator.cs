@@ -9,7 +9,7 @@ namespace ArchitectureAlloySpecGenerator.Interfaces
 {
     public interface IPipeFilterSpecCreator
     {
-        StringBuilder CreateSpec(PipeFilterSystemModel system);
+        StringBuilder CreateSpec(ClientServerSystemModel system);
 
     }
 }

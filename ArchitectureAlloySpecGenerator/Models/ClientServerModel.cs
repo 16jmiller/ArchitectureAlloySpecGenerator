@@ -13,8 +13,8 @@ namespace ArchitectureAlloySpecGenerator.Models
     public class CnsConnector
     {
         public string Name { get; set; }
-        public List<Requester> Requesters { get; set; }
-        public List<Provider> Providers { get; set; }
+        public List<CnsRequester> Requesters { get; set; }
+        public List<CnsProvider> Providers { get; set; }
     }
 
     public class CnsPort
@@ -38,7 +38,7 @@ namespace ArchitectureAlloySpecGenerator.Models
 
     public class CnsServer : CnsComponent
     {
-        public List<ClientAccess> ClientAccesses { get; set; }
+        public List<CnsClientAccess> ClientAccesses { get; set; }
     }
 
     public class CnsClient : CnsComponent
