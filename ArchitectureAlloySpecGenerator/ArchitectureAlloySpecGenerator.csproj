@@ -140,6 +140,9 @@
     <Content Include="Scripts\Libraries\Modernizr\modernizr-2.6.2.js" />
     <Content Include="Scripts\Source\DiagramEditor.js" />
     <Content Include="Scripts\Source\Diagrammer.js" />
+    <Content Include="Scripts\Source\CanvasToolbar.js" />
+    <Content Include="Scripts\Source\Models\ArchitectureElement.js" />
+    <Content Include="Scripts\Source\Models\Templates.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +166,7 @@
     <Content Include="Scripts\Libraries\JQuery\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Partials\_CanvasToolbar.cshtml" />
     <Content Include="Views\Home\Partials\_DiagramEditor.cshtml" />
+    <Content Include="Views\Home\Partials\_NewDiagramModal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -174,7 +178,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\" />
     <Folder Include="Models\" />
-    <Folder Include="Scripts\Source\Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

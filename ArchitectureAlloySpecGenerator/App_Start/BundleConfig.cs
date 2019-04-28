@@ -20,6 +20,7 @@ namespace ArchitectureAlloySpecGenerator
                 "~/Scripts/Libraries/FabricJS/fabric.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/diagrammer").Include(
+                "~/Scripts/Source/Models/Templates.js",
                 "~/Scripts/Source/Diagrammer.js",
                 "~/Scripts/Source/DiagramEditor.js"));
 

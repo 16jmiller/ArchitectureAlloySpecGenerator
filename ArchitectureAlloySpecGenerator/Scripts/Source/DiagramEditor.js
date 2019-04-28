@@ -23,7 +23,7 @@
     $(document).on("click", ".delete-interaction", function () { deleteRow(this, "add-new-interaction") });
 })();
 
-
+// Add new row to table
 function addNewRow(button, tableId, actions, type) {
     console.log("add new row");
     $(button).attr("disabled", "disabled");
@@ -53,10 +53,12 @@ function addRow(button, addNewButton, type) {
     });
     $(button).parents("tr").find(".error").first().focus();
     if (!empty) {
-        console.log("Finish");
+        let architectureElement = [];
         input.each(function () {
             $(this).parent("td").html($(this).val());
+            architectureElement.push($(this).val());
         });
+        addArchitectureElement(architectureElement, type);
         $(button).parents("tr").find(".add-" + type + ", .edit-" + type).toggle();
         $("#" + addNewButton).removeAttr("disabled");
     }
@@ -84,4 +86,35 @@ function getActions(type) {
         '<a class="delete delete-' + type + '" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>' +
         '</td>';
     return $(actions).html();
+}
+
+function addArchitectureElement(element, type) {
+    const elementId = getNextElementId();
+    if (type === "component") {
+        const component = {
+            id: elementId,
+            name: element[0],
+            port: element[1]
+        };
+        window.Diagrammer.architecturalElements.components.push(component);
+    } else if (type === "connector") {
+        const connector = {
+            id: elementId,
+            name: element[0],
+            role: element[1]
+        };
+        window.Diagrammer.architecturalElements.connectors.push(connector);
+    } else if (type === "interaction") {
+        const interaction = {
+            id: elementId,
+            port: element[0],
+            role: element[1]
+        };
+        window.Diagrammer.architecturalElements.interactions.push(interaction);
+    }
+    console.log(window.Diagrammer.architecturalElements);
+}
+
+function getNextElementId() {
+    return architecturalElements.components.length + architecturalElements.connectors.length + 1;
 }
