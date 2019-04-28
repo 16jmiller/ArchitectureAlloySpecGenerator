@@ -14,20 +14,55 @@
                 <table id="component-table" class="table table-bordered">
                     <thead>
                         <tr>
+                            <th>Id</th>
                             <th>Name</th>
-                            <th>Port</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td>1</td>
                             <td>Pipe1</td>
-                            <td>Port1</td>
                             <td>
                                 <a class="add add-component" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
                                 <a class="edit edit-component" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                                 <a class="delete delete-component" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                             </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Ports</h2></div>
+                        <div class="col-sm-4">
+                            <button type="button" id="add-new-port" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+                        </div>
+                    </div>
+                </div>
+                <table id="port-table" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Component</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2</td>
+                            <td>Port1</td>
+                            <td>3</td>
+                            <td>
+                                <a class="add add-port" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                                <a class="edit edit-port" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                <a class="delete delete-port" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -45,20 +80,56 @@
                 <table id="connector-table" class="table table-bordered">
                     <thead>
                         <tr>
+                            <th>Id</th>
                             <th>Name</th>
-                            <th>Role</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td>2</td>
                             <td>Connector1</td>
-                            <td>Role1</td>
                             <td>
                                 <a class="add add-connector" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
                                 <a class="edit edit-connector" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                                 <a class="delete delete-connector" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                             </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Roles</h2></div>
+                        <div class="col-sm-4">
+                            <button type="button" id="add-new-role" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+                        </div>
+                    </div>
+                </div>
+                <table id="role-table" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Role</th>
+                            <th>Connector</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2</td>
+                            <td>Role1</td>
+                            <td>5
+                            </td>
+                            <td>
+                                <a class="add add-role" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                                <a class="edit edit-role" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                <a class="delete delete-role" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -90,6 +161,7 @@
                                 <a class="edit edit-interaction" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                                 <a class="delete delete-interaction" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                             </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

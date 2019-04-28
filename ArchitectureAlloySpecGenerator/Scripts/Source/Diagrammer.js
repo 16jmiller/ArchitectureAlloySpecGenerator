@@ -1,4 +1,4 @@
-﻿let STAGE = undefined;
+﻿let id = 5;
 
 (function () {
     const stage = initializeCanvas();
@@ -6,7 +6,7 @@
     if (!window.Diagrammer) window.Diagrammer = {};
     window.Diagrammer = {
         stage: stage,
-        architecturalElements: {
+        architectureElements: {
             components: [],
             connectors: [],
             ports: [],
@@ -16,6 +16,7 @@
     };
 
     $("#new-diagram-form").on("submit", initializeNewDiagram());
+    populateEditorTables();
 })();
 
 function initializeCanvas() {
@@ -31,28 +32,29 @@ function initializeCanvas() {
 function initializeNewDiagram() {
     const architectureStyle = $("#architecture-style").val();
     if (architectureStyle === "Pipe and Filter") {
-        window.Diagrammer.architecturalElements = PIPE_AND_FILTER;
+        window.Diagrammer.architectureElements = PIPE_AND_FILTER;
     } else if (architectureStyle === "Client Server") {
 
     }
     initializeArchitectureElements();
+    populateEditorTables();
 }
 
 function initializeArchitectureElements(event) {
-    window.Diagrammer.architecturalElements.components.forEach(function (element) {
+    window.Diagrammer.architectureElements.components.forEach(function (element) {
         element.fabricObj = addComponentToCanvas(element);
         console.log(element);
     });
-    window.Diagrammer.architecturalElements.connectors.forEach(function (element) {
+    window.Diagrammer.architectureElements.connectors.forEach(function (element) {
         element.fabricObj = addConnectorToCanvas(element);
     });
-    window.Diagrammer.architecturalElements.ports.forEach(function (element) {
+    window.Diagrammer.architectureElements.ports.forEach(function (element) {
         element.fabricObj = addPortToCanvas(element);
     });
-    window.Diagrammer.architecturalElements.roles.forEach(function (element) {
+    window.Diagrammer.architectureElements.roles.forEach(function (element) {
         element.fabricObj = addRoleToCanvas(element);
     });
-    console.log(window.Diagrammer.architecturalElements);
+    console.log(window.Diagrammer.architectureElements);
 }
 
 function addComponentToCanvas(component) {
@@ -64,19 +66,9 @@ function addComponentToCanvas(component) {
         height: 100
     });
 
-    const componentText = new fabric.Text(component.name, {
-        fontSize: 30,
-        originX: 'center',
-        originY: 'center'
-    });
-
-    const group = new fabric.Group([componentShape, componentText], {
-        left: 150,
-        top: 100
-    });
-
-    window.Diagrammer.stage.add(group);
-    return group;
+    const labeledComponent = labelElement(componentShape, component.name);
+    window.Diagrammer.stage.add(labeledComponent);
+    return labeledComponent;
 }
 
 function addConnectorToCanvas(connector) {
@@ -88,19 +80,9 @@ function addConnectorToCanvas(connector) {
         height: 100
     });
 
-    const connectorText = new fabric.Text(connector.name, {
-        fontSize: 30,
-        originX: 'center',
-        originY: 'center'
-    });
-
-    const group = new fabric.Group([connectorShape, connectorText], {
-        left: 150,
-        top: 100
-    });
-
-    window.Diagrammer.stage.add(group);
-    return group;
+    const labeledConnector = labelElement(connectorShape, connector.name);
+    window.Diagrammer.stage.add(labeledConnector);
+    return labeledConnector;
 }
 
 function addPortToCanvas(port) {
@@ -112,19 +94,9 @@ function addPortToCanvas(port) {
         height: 80
     });
 
-    const portText = new fabric.Text(port.name, {
-        fontSize: 30,
-        originX: 'center',
-        originY: 'center'
-    });
-
-    const group = new fabric.Group([portShape, portText], {
-        left: 150,
-        top: 100
-    });
-
-    window.Diagrammer.stage.add(group);
-    return group;
+    const labeledPort = labelElement(portShape, port.name);
+    window.Diagrammer.stage.add(labeledPort);
+    return labeledPort;
 }
 
 function addRoleToCanvas(role) {
@@ -135,17 +107,40 @@ function addRoleToCanvas(role) {
         radius: 40
     });
 
-    const roleText = new fabric.Text(role.name, {
+    const labeledRole = labelElement(roleShape, role.name);
+    window.Diagrammer.stage.add(labeledRole);
+    return labeledRole;
+}
+
+function labelElement(element, label) {
+    const text = new fabric.Text(label, {
         fontSize: 30,
         originX: 'center',
         originY: 'center'
     });
 
-    const group = new fabric.Group([roleShape, roleText], {
+    const group = new fabric.Group([element, text], {
         left: 150,
         top: 100
     });
+    return group
+}
 
-    window.Diagrammer.stage.add(group);
-    return group;
+function populateEditorTables() {
+    window.Diagrammer.architectureElements.components.forEach(function (element) {
+        addFilledRow("component-table", element, "component");
+    });
+
+}
+
+function addFilledRow(tableId, element, type) {
+    const actions = getActions(type);
+    const index = $("#" + tableId + " tbody tr:last-child").index();
+    const row = '<tr>' +
+        '<td>' + element.id + '</td>' +
+        '<td' + element.name + '</td>' +
+        '<td>' + actions + '</td>' +
+        '</tr>';
+    $("#" + tableId).append(row);
+    $("#" + tableId + " tbody tr").eq(index + 1).find(".add-" + type + ", .edit-" + type).toggle();
 }
