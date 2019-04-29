@@ -7,7 +7,7 @@ using ArchitectureAlloySpecGenerator.Interfaces;
 using ArchitectureAlloySpecGenerator.Models;
 using Newtonsoft.Json;
 
-namespace ArchitectureAlloySpecGenerator.Implementations
+namespace ArchitectureAlloySpecGenerator.Translator
 {
     public class PipeFilterJSONTranslator : IPipeFilterJSONTranslator
     {

@@ -6,7 +6,7 @@ using System.Web;
 using ArchitectureAlloySpecGenerator.Interfaces;
 using ArchitectureAlloySpecGenerator.Models;
 
-namespace ArchitectureAlloySpecGenerator.Implementations
+namespace ArchitectureAlloySpecGenerator.Translator
 {
     public class PipeFilterSpecCreator : IPipeFilterSpecCreator
     {
