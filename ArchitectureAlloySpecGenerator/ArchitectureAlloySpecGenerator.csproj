@@ -167,6 +167,7 @@
     <Content Include="Views\Home\Partials\_CanvasToolbar.cshtml" />
     <Content Include="Views\Home\Partials\_DiagramEditor.cshtml" />
     <Content Include="Views\Home\Partials\_NewDiagramModal.cshtml" />
+    <Content Include="Views\Home\Partials\_GenerateAlloyModal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -12,6 +12,8 @@
         return;
     });
 
+    $("#btn-generate-alloy").on("click", generateAlloy);
+
     window.Diagrammer.stage.on("object:moving", function (e) {
         const element = e.target;
         const elementCenter = getElementCenter(element);
@@ -344,4 +346,51 @@ function initializeIdCounter() {
 
 function getNextElementId() {
     return ++_ID;
+}
+
+function generateAlloy() {
+    console.log("GG Hamid");
+    let architectureElementsFinal = {
+        components: [],
+        connectors: [],
+        ports: [],
+        roles: [],
+        interactions: []
+    }
+
+    window.Diagrammer.architectureElements.components.forEach(function (component) {
+        architectureElementsFinal.components.push({
+            id: component.id,
+            name: component.name
+        });
+    });
+    window.Diagrammer.architectureElements.connectors.forEach(function (connector) {
+        architectureElementsFinal.connectors.push({
+            id: connector.id,
+            name: connector.name
+        });
+    });
+    window.Diagrammer.architectureElements.ports.forEach(function (port) {
+        architectureElementsFinal.ports.push({
+            id: port.id,
+            name: port.name,
+            component: port.component
+        });
+    });
+    window.Diagrammer.architectureElements.roles.forEach(function (role) {
+        architectureElementsFinal.roles.push({
+            id: role.id,
+            name: role.name,
+            connector: role.connector
+        });
+    });
+    window.Diagrammer.architectureElements.interactions.forEach(function (interaction) {
+        architectureElementsFinal.interactions.push({
+            id: interaction.id,
+            port: interaction.port,
+            role: interaction.role
+        });
+    });
+
+    const architectureElementsFinalString = JSON.stringify(architectureElementsFinal);
 }
