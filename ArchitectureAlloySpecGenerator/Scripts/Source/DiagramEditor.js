@@ -44,7 +44,7 @@
         addInteraction(this);
     });
     $(document).on("click", ".edit-interaction", function () { editRow_Interaction(this, "add-new-interaction", "interaction") });
-    $(document).on("click", ".delete-interaction", function () { deleteRow(this, "add-new-interaction") });
+    $(document).on("click", ".delete-interaction", function () { deleteRow(this, "add-new-interaction", "interaction") });
 })();
 
 // Add new row to table
@@ -103,8 +103,9 @@ function deleteRow(button, addNewButton, type) {
         deleteComponentConnector(button, type);
     } else if (type === "role" || type === "port") {
         deleteRolePort(button, type)
+    } else if (type === "interaction") {
+        deleteInteraction(button, type);
     }
-
 }
 
 function deleteComponentConnector(button, type) {
@@ -137,14 +138,78 @@ function deleteRolePort(button, type) {
         window.Diagrammer.architectureElements.ports.splice(portIndex, 1);
         console.log(window.Diagrammer.architectureElements);
 
+        const oldInteractions = window.Diagrammer.architectureElements.interactions.filter(x => x.port === id);
+        oldInteractions.forEach(function (element) {
+            var tableRow = $("#interaction-table tr").each(function () {
+                console.log($(this));
+                console.log($(this).find('td').eq(0).text());
+                if ($(this).find('td').eq(0).text() == element.id) {
+                    console.log("Removing");
+                    $(this).remove();
+                }
+            });
+            removeInteraction(element.id)
+        });
+
+
         removeElementFromStage(id);
     } else if (type === "role") {
         const roleIndex = window.Diagrammer.architectureElements.roles.findIndex(x => x.id === id);
         window.Diagrammer.architectureElements.roles.splice(roleIndex, 1);
         console.log(window.Diagrammer.architectureElements);
 
+        const oldInteractions = window.Diagrammer.architectureElements.interactions.filter(x => x.role === id);
+        oldInteractions.forEach(function (element) {
+            var tableRow = $("#interaction-table tr").each(function () {
+                console.log($(this));
+                console.log($(this).find('td').eq(0).text());
+                if ($(this).find('td').eq(0).text() == element.id) {
+                    console.log("Removing");
+                    $(this).remove();
+                }
+            });
+            removeInteraction(element.id)
+        });
+
         removeElementFromStage(id);
     }
+}
+
+function deleteInteraction(button) {
+    let id = $(button).parents("tr").find("td:nth-child(1)").text();
+
+    const portId = parseInt($(button).parents("tr").find("td:nth-child(2)").text());
+    const roleId = parseInt($(button).parents("tr").find("td:nth-child(3)").text());
+
+    const textKey = "" + portId + roleId;
+    id = parseInt(fixId(id, textKey));
+
+    const interactionsIndex = window.Diagrammer.architectureElements.interactions.findIndex(x => x.id === id);
+    window.Diagrammer.architectureElements.interactions.splice(interactionsIndex, 1);
+    console.log(window.Diagrammer.architectureElements);
+
+    window.Diagrammer.stage.getById(portId).lines.forEach(function (portLineObj) {
+        window.Diagrammer.stage.getById(roleId).lines.forEach(function (roleLineObj) {
+            if (portLineObj.line === roleLineObj.line) {
+                window.Diagrammer.stage.remove(portLineObj.line);
+            }
+        });
+    });
+}
+
+function removeInteraction(id) {
+    const interactionsIndex = window.Diagrammer.architectureElements.interactions.findIndex(x => x.id === id);
+    const interaction = window.Diagrammer.architectureElements.interactions[interactionsIndex];
+    window.Diagrammer.architectureElements.interactions.splice(interactionsIndex, 1);
+    console.log(window.Diagrammer.architectureElements);
+
+    window.Diagrammer.stage.getById(interaction.port).lines.forEach(function (portLineObj) {
+        window.Diagrammer.stage.getById(interaction.role).lines.forEach(function (roleLineObj) {
+            if (portLineObj.line === roleLineObj.line) {
+                window.Diagrammer.stage.remove(portLineObj.line);
+            }
+        });
+    });
 }
 
 function removeElementFromStage(id) {
@@ -312,10 +377,29 @@ function addRolePort(button, type) {
             addPortComponentInteraction(element);
             window.Diagrammer.architectureElements.ports.push(element);
         } else {
+            const oldComponentId = window.Diagrammer.architectureElements.ports[foundIndex].component;
+            const oldComponentIndex = window.Diagrammer.architectureElements.components.findIndex(x => x.id === oldComponentId);
+            const oldComponent = window.Diagrammer.architectureElements.components[oldComponentIndex];
+            console.log("old comp");
+            console.log(oldComponent);
+
             window.Diagrammer.architectureElements.ports[foundIndex].name = name;
             window.Diagrammer.architectureElements.ports[foundIndex].component = key;
             window.Diagrammer.architectureElements.ports[foundIndex].fabricObj.item(1).set({ text: name });
-            window.Diagrammer.stage.renderAll();
+
+            window.Diagrammer.stage.getById(id).lines.forEach(function (lineObj) {
+                console.log("Line obj");
+                console.log(lineObj.line);
+                oldComponent.fabricObj.lines.forEach(function (oldCompLineObj) {
+                    console.log("Old comp obj");
+                    console.log(oldCompLineObj.line);
+                    if (lineObj.line === oldCompLineObj.line) {
+                        console.log("match");
+                        window.Diagrammer.stage.remove(lineObj.line);
+                    }
+                });
+            });
+            addPortComponentInteraction(window.Diagrammer.architectureElements.ports[foundIndex]);
         }
     } else if (type === "role") {
         const foundIndex = window.Diagrammer.architectureElements.roles.findIndex(x => x.id === id);
@@ -330,10 +414,23 @@ function addRolePort(button, type) {
             addRoleConnectorInteraction(element);
             window.Diagrammer.architectureElements.roles.push(element);
         } else {
+            const oldConnectorId = window.Diagrammer.architectureElements.roles[foundIndex].connector;
+            const oldConnectorIndex = window.Diagrammer.architectureElements.connectors.findIndex(x => x.id === oldConnectorId);
+            const oldConnector = window.Diagrammer.architectureElements.connectors[oldConnectorIndex];
+
             window.Diagrammer.architectureElements.roles[foundIndex].name = name;
             window.Diagrammer.architectureElements.roles[foundIndex].connector = key;
             window.Diagrammer.architectureElements.roles[foundIndex].fabricObj.item(1).set({ text: name });
-            window.Diagrammer.stage.renderAll();
+
+            window.Diagrammer.stage.getById(id).lines.forEach(function (lineObj) {
+                oldConnector.fabricObj.lines.forEach(function (oldConnLineObj) {
+                    console.log(oldConnLineObj.line);
+                    if (lineObj.line === oldConnLineObj.line) {
+                        window.Diagrammer.stage.remove(lineObj.line);
+                    }
+                });
+            });
+            addRoleConnectorInteraction(window.Diagrammer.architectureElements.roles[foundIndex]);
         }
     }
     console.log(window.Diagrammer.architectureElements);
@@ -361,8 +458,25 @@ function addInteraction(button) {
         addPortRoleInteraction(element);
         window.Diagrammer.architectureElements.interactions.push(element);
     } else {
+        const oldPortId = window.Diagrammer.architectureElements.interactions[foundIndex].port;
+        const oldPortIndex = window.Diagrammer.architectureElements.ports.findIndex(x => x.id === oldPortId);
+        const oldPort = window.Diagrammer.architectureElements.ports[oldPortIndex];
+
+        const oldRoleId = window.Diagrammer.architectureElements.interactions[foundIndex].role;
+        const oldRoleIndex = window.Diagrammer.architectureElements.roles.findIndex(x => x.id === oldRoleId);
+        const oldRole = window.Diagrammer.architectureElements.roles[oldRoleIndex];
+
         window.Diagrammer.architectureElements.interactions[foundIndex].port = port;
         window.Diagrammer.architectureElements.interactions[foundIndex].role = role;
+
+        oldRole.fabricObj.lines.forEach(function (oldRoleLineObj) {
+            oldPort.fabricObj.lines.forEach(function (oldPortLineObj) {
+                if (oldRoleLineObj.line === oldPortLineObj.line) {
+                    window.Diagrammer.stage.remove(oldRoleLineObj.line);
+                }
+            });
+        });
+        addPortRoleInteraction(window.Diagrammer.architectureElements.interactions[foundIndex]);
     }
 
     console.log(window.Diagrammer.architectureElements);

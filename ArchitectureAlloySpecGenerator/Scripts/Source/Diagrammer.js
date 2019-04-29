@@ -1,21 +1,17 @@
 ﻿let _ID = 0;
 
 (function () {
-    const stage = initializeCanvas();
+    initializeDiagrammer();
+    //initializeNewDiagram("Pipe and Filter");
 
-    if (!window.Diagrammer) window.Diagrammer = {};
-    window.Diagrammer = {
-        stage: stage,
-        architectureElements: {
-            components: [],
-            connectors: [],
-            ports: [],
-            roles: [],
-            interactions: []
-        },
-    };
+    $("#new-diagram-form").on("submit", function (event) {
+        event.preventDefault();
+        clearArchitectureElements();
+        initializeNewDiagram();
+        $("#new-diagram-form").modal("hide");
+        return;
+    });
 
-    $("#new-diagram-form").on("submit", initializeNewDiagram());
     window.Diagrammer.stage.on("object:moving", function (e) {
         const element = e.target;
         const elementCenter = getElementCenter(element);
@@ -40,6 +36,34 @@ fabric.Canvas.prototype.getById = function (id) {
     }
 };
 
+function initializeDiagrammer() {
+    const stage = initializeCanvas();
+
+    if (!window.Diagrammer) window.Diagrammer = {};
+    window.Diagrammer = {
+        stage: stage,
+        architectureElements: {
+            components: [],
+            connectors: [],
+            ports: [],
+            roles: [],
+            interactions: []
+        },
+    };
+
+}
+
+function clearArchitectureElements() {
+    window.Diagrammer.architectureElements = {
+        components: [],
+        connectors: [],
+        ports: [],
+        roles: [],
+        interactions: []
+    }
+    window.Diagrammer.stage.clear();
+}
+
 function initializeCanvas() {
     var oldCanvas = document.getElementById('canvas');
 
@@ -50,12 +74,17 @@ function initializeCanvas() {
         });
 }
 
-function initializeNewDiagram() {
-    const architectureStyle = $("#architecture-style").val();
+function initializeNewDiagram(type) {
+    let architectureStyle = type;
+    if (!architectureStyle) {
+        architectureStyle = $("#architecture-style").find('option:selected').text();
+    } 
     if (architectureStyle === "Pipe and Filter") {
+        console.log("P&F selected");
         window.Diagrammer.architectureElements = PIPE_AND_FILTER;
     } else if (architectureStyle === "Client Server") {
-
+        console.log("CNS selected");
+        window.Diagrammer.architectureElements = CLIENT_SERVER;
     }
     initializeArchitectureElements();
     initializeInteractions();
@@ -225,6 +254,12 @@ function labelElement(element, label) {
 }
 
 function populateEditorTables() {
+    $("#component-table tbody").empty();
+    $("#port-table tbody").empty();
+    $("#connector-table tbody").empty();
+    $("#role-table tbody").empty();
+    $("#interaction-table tbody").empty();
+
     window.Diagrammer.architectureElements.components.forEach(function (element) {
         addFilledRow("component-table", element, "component");
     });
