@@ -8,30 +8,53 @@ namespace ArchitectureAlloySpecGenerator.Controllers
 {
     public class HomeController : Controller
     {
+        private IClientServerSpecCreator CnsSpecCreator;
+        private IPipeFilterSpecCreator PnfSpecCreator;
+        private IClientServerJSONTranslator CnsJSONTranslator;
+        private IPipeFilterJSONTranslator PnfJSONTranslator;
+
         // GET: Default
         public ActionResult Index()
         {
             return View();
         }
 
+        [HttpPost]
         public ActionResult Submit()
         {
-            //Determine from JSON which system is built
-            //If clientServer
-            ClientServerSystemModel system = new ClientServerSystemModel();
-
-            //If PipeFilter
-            PipeFilterSystemModel system = new PipeFilterSystemModel();
-
             StringBuilder spec = new StringBuilder();
-            // Abbie will create the system from Trent's json object here:
+            String json = new StreamReader(this.Request.InputStream).ReadToEnd();
 
-            // If Client Server:
-            spec = CnsSpecCreater.CreateSpec(system);
 
-            // Abbie will output the spec to the file here:
+            if (json.Contains("ClientServer"))
+            {
+                var system = CnsJSONTranslator.CreateModel(json);
+                spec = CnsSpecCreator.CreateSpec(system);
+            }
+            else if (json.Contains("PipeAndFilter"))
+            {
+                var system = PnfJSONTranslator.CreateModel(json);
+                spec = PnfSpecCreator.CreateSpec(system);
+            }
 
-            return View();
+            saveFileClientSide(spec);
+
+            return new EmptyResult();
+        }
+
+        private void saveFileClientSide(StringBuilder sb)
+        {
+            var contentType = "text/plain";
+            var fileName = "alloySpecification.als";
+            var header = "attachment;Filename=" + fileName;
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.ContentType = contentType;
+            Response.AppendHeader("Content-Disposition", header);
+
+            Response.Write(sb.ToString());
+            Response.Flush();
         }
     }
 }
