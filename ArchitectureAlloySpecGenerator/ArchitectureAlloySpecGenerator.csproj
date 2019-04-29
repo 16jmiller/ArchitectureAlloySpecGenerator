@@ -152,12 +152,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Implementations\ClientServerSpecCreator.cs" />
-    <Compile Include="Implementations\PipeFilterSpecCreator.cs" />
-    <Compile Include="Interfaces\IClientServerSpecCreator.cs" />
-    <Compile Include="Interfaces\IPipeFilterSpecCreator.cs" />
-    <Compile Include="Models\ClientServerModel.cs" />
-    <Compile Include="Models\PipeFilterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

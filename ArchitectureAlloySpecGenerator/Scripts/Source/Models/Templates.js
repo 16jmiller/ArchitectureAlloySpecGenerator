@@ -3,19 +3,16 @@ const PIPE_AND_FILTER = {
     components: [
         {
             id: 1,
-            name: "Pipe1",
-            ports: [4]
+            name: "Pipe1"
         }, {
             id: 2,
-            name: "Pipe2",
-            ports: [5]
+            name: "Pipe2"
         }
     ],
     connectors: [
         {
             id: 3,
-            name: "Filter1",
-            roles: [6, 7]
+            name: "Filter1"
         }
     ],
     ports: [
@@ -42,10 +39,12 @@ const PIPE_AND_FILTER = {
     ],
     interactions: [
         {
+            id: 8,
             port: 4,
             role: 6
         },
         {
+            id: 9,
             port: 5,
             role: 7
         }

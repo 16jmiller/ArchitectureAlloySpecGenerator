@@ -16,6 +16,7 @@ namespace ArchitectureAlloySpecGenerator.Controllers
 
         public ActionResult Submit()
         {
+            /*
             //Determine from JSON which system is built
             //If clientServer
             ClientServerSystemModel system = new ClientServerSystemModel();
@@ -31,6 +32,7 @@ namespace ArchitectureAlloySpecGenerator.Controllers
 
             // Abbie will output the spec to the file here:
 
+            */
             return View();
         }
     }
