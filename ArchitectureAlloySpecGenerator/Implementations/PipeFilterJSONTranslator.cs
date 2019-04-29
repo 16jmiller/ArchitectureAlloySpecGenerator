@@ -43,7 +43,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                             }
                         }
                     }
-                    if(tempDataSink.Inputs == null || tempDataSink.Inputs < 1)
+                    if(tempDataSink.Inputs == null || tempDataSink.Inputs.Count < 1)
                     {
                         //THROW ERROR: no inputs found for DataSink
                     }
@@ -66,7 +66,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                           {
                               PnfOutput tempOutput = new PnfOutput();
                               tempOutput.Name = p.name;
-                              tempDataSource.Inputs.Add(tempOutput);
+                              tempDataSource.Outputs.Add(tempOutput);
                           }
                           else
                           {
@@ -74,7 +74,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                           }
                       }
                   }
-                  if(tempDataSource.Outputs == null || tempDataSource.Outputs < 1)
+                  if(tempDataSource.Outputs == null || tempDataSource.Outputs.Count < 1)
                   {
                       //THROW ERROR: no outputs found for DataSource
                   }
@@ -103,7 +103,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                             {
                                 PnfOutput tempOutput = new PnfOutput();
                                 tempOutput.Name = p.name;
-                                tempFilter.Inputs.Add(tempOutput);
+                                tempFilter.Outputs.Add(tempOutput);
                             }
                             else
                             {
@@ -111,14 +111,14 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                             }
                         }
                     }
-                    if((tempFilter.Outputs == null || tempFilter.Outputs < 1) ||
-                    (tempFilter.Inputs == null || tempFilter.Outputs < 1))
+                    if((tempFilter.Outputs == null || tempFilter.Outputs.Count < 1) ||
+                    (tempFilter.Inputs == null || tempFilter.Inputs.Count < 1))
                     {
                         //THROW ERROR: no inputs or outputs found for Filter
                     }
                     else
                     {
-                        system.Filters.Add(Filter);
+                        system.Filters.Add(tempFilter);
                     }
                 }
                 else
@@ -156,8 +156,8 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                         }
                     }
                 }
-                if((newPipe.Sinks == null || newPipe.Sinks < 1) ||
-                (newPipe.Sources == null || newPipe.Sources < 1))
+                if((newPipe.Sinks == null || newPipe.Sinks.Count < 1) ||
+                (newPipe.Sources == null || newPipe.Sources.Count < 1))
                 {
                     //THROW ERROR: no Sinks or Sources found for Pipe.
                 }
@@ -176,7 +176,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                 // Find name of each role
                 foreach(Role r in details.roles)
                 {
-                    if(i.role = r.id)
+                    if(i.role == r.id)
                     {
                         tempRole.Name = r.name;
                     }
@@ -184,20 +184,20 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                 // Find name of each port
                 foreach(Port p in details.ports)
                 {
-                    if(i.port = p.id)
+                    if(i.port == p.id)
                     {
                         tempPort.Name = p.name;
                     }
                 }
 
                 // if both are not null add to attachments
-                if(tempPort.Name.IsNullOrEmpty() || tempRole.Name.IsNullOrEmpty() )
+                if(string.IsNullOrEmpty(tempPort.Name) || string.IsNullOrEmpty(tempRole.Name) )
                 {
                     //THROW ERROR: Broken, ids are wrong for interactions
                 }
                 else
                 {
-                    system.Attachments.Add(new KeyValuePair<PnfRole, PnfPort>(tempRole, tempPort));
+                    system.Attachments.Add(tempRole, tempPort);
                 }
             }
             return system;

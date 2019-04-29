@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ArchitectureAlloySpecGenerator.Models
 {
-    public class Component
+    public class PnfComponent
     {
         public string Name { get; set; }
     }

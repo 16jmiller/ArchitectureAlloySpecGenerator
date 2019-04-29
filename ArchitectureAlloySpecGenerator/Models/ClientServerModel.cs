@@ -38,7 +38,7 @@ namespace ArchitectureAlloySpecGenerator.Models
 
     public class CnsServer : CnsComponent
     {
-        public List<ClientAccess> ClientAccesses { get; set; }
+        public List<CnsClientAccess> ClientAccesses { get; set; }
     }
 
     public class CnsClient : CnsComponent

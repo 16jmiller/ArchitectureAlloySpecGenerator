@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace ArchitectureAlloySpecGenerator.Implementations
 {
-    public class IClientServerJSONTranslator : IClientServerJSONTranslator
+    public class ClientServerJSONTranslator : IClientServerJSONTranslator
     {
         public ClientServerSystemModel CreateModel(String json)
         {
@@ -47,8 +47,8 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                         }
                     }
                 }
-                if((newConnector.Providers == null || newConnector.Providers < 1) ||
-                (newConnector.Requesters == null || newConnector.Requesters < 1))
+                if((newConnector.Providers == null || newConnector.Providers.Count < 1) ||
+                (newConnector.Requesters == null || newConnector.Requesters.Count < 1))
                 {
                     //THROW ERROR: no roles found for connector
                 }
@@ -83,7 +83,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                             }
                         }
                     }
-                    if(newServer.ClientAccesses == null || newServer.ClientAccesses < 1)
+                    if(newServer.ClientAccesses == null || newServer.ClientAccesses.Count < 1)
                     {
                         //THROW ERROR: no ClientAccess found for Server.
                     }
@@ -114,7 +114,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                           }
                       }
                   }
-                  if(newClient.ServerRequests == null || newClient.ServerRequests < 1)
+                  if(newClient.ServerRequests == null || newClient.ServerRequests.Count < 1)
                   {
                       //THROW ERROR: no ServerRequests found for Client.
                   }
@@ -138,7 +138,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                 // Find name of each role
                 foreach(Role r in details.roles)
                 {
-                    if(i.role = r.id)
+                    if(i.role == r.id)
                     {
                         tempRole.Name = r.name;
                     }
@@ -146,20 +146,20 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                 // Find name of each port
                 foreach(Port p in details.ports)
                 {
-                    if(i.port = p.id)
+                    if(i.port == p.id)
                     {
                         tempPort.Name = p.name;
                     }
                 }
 
                 // if both are not null add to attachments
-                if(tempPort.Name.IsNullOrEmpty() || tempRole.Name.IsNullOrEmpty() )
+                if(string.IsNullOrEmpty(tempPort.Name) || string.IsNullOrEmpty(tempRole.Name) )
                 {
                     //THROW ERROR: Broken, ids are wrong for interactions
                 }
                 else
                 {
-                    system.Attachments.Add(new KeyValuePair<CnsRole, CnsPort>(tempRole, tempPort));
+                    system.Attachments.Add(tempRole, tempPort);
                 }
             }
             return system;

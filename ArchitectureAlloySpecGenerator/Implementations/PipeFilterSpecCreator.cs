@@ -26,7 +26,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
             pf_spec.Append(" extends System{}\n\n");
 
             // For each Filter:
-            foreach (Filter f in system.Servers)
+            foreach (PnfFilter f in system.Filters)
             {
                 pf_spec.Append("one sig ");
                 pf_spec.Append(f.Name);
@@ -165,7 +165,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
             }
 
             // For each Input from DataSinks:
-            foreach (PnfDataSource s in system.DataSinks)
+            foreach (PnfDataSink s in system.DataSinks)
             {
                 foreach (PnfInput i in s.Inputs)
                 {
@@ -221,7 +221,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                 pf_spec.Append(".attachments =\n");
 
                 int attachment_count = 0;
-                foreach(KeyValuePair<Role, Port> a in system.Attachments)
+                foreach(KeyValuePair<PnfRole, PnfPort> a in system.Attachments)
                 {
                     if(attachment_count == 0)
                     {
