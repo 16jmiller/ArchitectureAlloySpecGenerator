@@ -16,26 +16,26 @@ namespace ArchitectureAlloySpecGenerator.Models
 
     public class Component
     {
-        public int id { get: set: }
+        public int id { get; set; }
         public String name { get; set; }
     }
 
     public class Connector
     {
-        public int id { get: set: }
+        public int id { get; set; }
         public String name { get; set; }
     }
 
     public class Port
     {
-        public int id { get: set: }
+        public int id { get; set; }
         public String name { get; set; }
         public int component { get; set; }
     }
 
     public class Role
     {
-        public int id { get: set: }
+        public int id { get; set; }
         public String name { get; set; }
         public int connector { get; set; }
     }
