@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,9 +7,9 @@ using ArchitectureAlloySpecGenerator.Models;
 
 namespace ArchitectureAlloySpecGenerator.Interfaces
 {
-    public interface IPipeFilterSpecCreator
+    public interface IPipeFilterJSONTranslator
     {
-        StringBuilder CreateSpec(PipeFilterSystemModel system);
+        PipeFilterSystemModel CreateModel(String json);
 
     }
 }

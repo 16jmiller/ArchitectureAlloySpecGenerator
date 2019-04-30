@@ -12,7 +12,7 @@
         return;
     });
 
-    $("#btn-generate-alloy").on("click", generateAlloy);
+    $("#generate-alloy-form").on("submit", generateAlloySpecification);
 
     window.Diagrammer.stage.on("object:moving", function (e) {
         const element = e.target;
@@ -348,15 +348,25 @@ function getNextElementId() {
     return ++_ID;
 }
 
-function generateAlloy() {
+function generateAlloySpecification(event) {
+    event.preventDefault();
+    const fileName = $("#document-name").val();
+    generateAlloy(fileName);
+    $("#generate-alloy-modal").modal('hide');
+}
+
+function generateAlloy(fileName) {
     console.log("GG Hamid");
     let architectureElementsFinal = {
+        type: "",
         components: [],
         connectors: [],
         ports: [],
         roles: [],
         interactions: []
     }
+
+    architectureElementsFinal.type = window.Diagrammer.architectureElements.type;
 
     window.Diagrammer.architectureElements.components.forEach(function (component) {
         architectureElementsFinal.components.push({
@@ -393,4 +403,25 @@ function generateAlloy() {
     });
 
     const architectureElementsFinalString = JSON.stringify(architectureElementsFinal);
+    const data = { json: architectureElementsFinalString };
+    console.log(architectureElementsFinalString);
+    $.ajax({
+        type: 'POST',
+        data: data,
+        url: '/Home/Submit',
+        success: function (response) {
+            console.log(fileName);
+            const fullFileName = fileName + ".als";
+            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                const blob = new Blob([response], { type: "application/json" });
+                window.navigator.msSaveOrOpenBlob(blob, fullFileName);
+            } else {
+                const anchor = document.createElement("a");
+                anchor.setAttribute("href", `data:application/json;charset=UTF-8,${encodeURIComponent(response)}`);
+                anchor.setAttribute("download", fullFileName);
+                anchor.click();
+                anchor.remove();
+            }
+        }
+    });
 }

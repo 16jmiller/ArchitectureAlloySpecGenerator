@@ -1,39 +1,40 @@
 ﻿// Pipe and Filter Templates
 const PIPE_AND_FILTER = {
+    type: "PipeAndFilter",
     components: [
         {
             id: 1,
-            name: "Pipe1"
+            name: "DataSource"
         }, {
             id: 2,
-            name: "Pipe2"
+            name: "DataSink"
         }
     ],
     connectors: [
         {
             id: 3,
-            name: "Filter1"
+            name: "Pipe1"
         }
     ],
     ports: [
         {
             id: 4,
-            name: "Port1",
+            name: "Output1",
             component: 1
         }, {
             id: 5,
-            name: "Port2",
+            name: "Input1",
             component: 2
         }
     ],
     roles: [
         {
             id: 6,
-            name: "Role1",
+            name: "Source1",
             connector: 3
         }, {
             id: 7,
-            name: "Role2",
+            name: "Sink1",
             connector: 3
         }
     ],
@@ -52,6 +53,7 @@ const PIPE_AND_FILTER = {
 };
 
 const CLIENT_SERVER = {
+    type: "ClientServer",
     components: [
         {
             id: 1,

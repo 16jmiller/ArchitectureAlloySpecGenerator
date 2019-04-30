@@ -6,7 +6,7 @@ using System.Web;
 using ArchitectureAlloySpecGenerator.Interfaces;
 using ArchitectureAlloySpecGenerator.Models;
 
-namespace ArchitectureAlloySpecGenerator.Implementations
+namespace ArchitectureAlloySpecGenerator.Translator
 {
     public class ClientServerSpecCreator : IClientServerSpecCreator
     {
@@ -121,7 +121,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                 {
                     cs_spec.Append("one sig ");
                     cs_spec.Append(ca.Name);
-                    cs_spec.Append(" extends ClientAccess{}\n");
+                    cs_spec.Append(" extends ClientAccess{}\n\n");
                 }
             }
 
@@ -133,7 +133,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                 {
                     cs_spec.Append("one sig ");
                     cs_spec.Append(p.Name);
-                    cs_spec.Append(" extends Provider{}\n");
+                    cs_spec.Append(" extends Provider{}\n\n");
                 }
 
                 // Requesters:
@@ -141,7 +141,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                 {
                     cs_spec.Append("one sig ");
                     cs_spec.Append(r.Name);
-                    cs_spec.Append(" extends Requester{}\n");
+                    cs_spec.Append(" extends Requester{}\n\n");
                 }
             }
 
@@ -152,7 +152,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                 {
                     cs_spec.Append("one sig ");
                     cs_spec.Append(sr.Name);
-                    cs_spec.Append(" extends ServerRequest{}\n");
+                    cs_spec.Append(" extends ServerRequest{}\n\n");
                 }
             }
 

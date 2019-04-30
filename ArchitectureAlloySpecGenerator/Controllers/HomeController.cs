@@ -1,6 +1,11 @@
-﻿using System;
+﻿using ArchitectureAlloySpecGenerator.Interfaces;
+using ArchitectureAlloySpecGenerator.Models;
+using ArchitectureAlloySpecGenerator.Translator;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,26 +19,48 @@ namespace ArchitectureAlloySpecGenerator.Controllers
             return View();
         }
 
-        public ActionResult Submit()
+        [HttpPost]
+        public ActionResult Submit(string json)
         {
-            /*
-            //Determine from JSON which system is built
-            //If clientServer
-            ClientServerSystemModel system = new ClientServerSystemModel();
-
-            //If PipeFilter
-            PipeFilterSystemModel system = new PipeFilterSystemModel();
 
             StringBuilder spec = new StringBuilder();
-            // Abbie will create the system from Trent's json object here:
+            //String json = new StreamReader(this.Request.InputStream).ReadToEnd();
 
-            // If Client Server:
-            spec = CnsSpecCreater.CreateSpec(system);
+            if (json.Contains("ClientServer"))
+            {
+                ClientServerJSONTranslator CnsJSONTranslator = new ClientServerJSONTranslator();
+                ClientServerSpecCreator CnsSpecCreator = new ClientServerSpecCreator();
 
-            // Abbie will output the spec to the file here:
+                ClientServerSystemModel system = CnsJSONTranslator.CreateModel(json);
+                spec = CnsSpecCreator.CreateSpec(system);
+            }
+            else if (json.Contains("PipeAndFilter"))
+            {
+                PipeFilterJSONTranslator PnfJSONTranslator = new PipeFilterJSONTranslator();
+                PipeFilterSpecCreator PnfSpecCreator = new PipeFilterSpecCreator();
 
-            */
-            return View();
+                PipeFilterSystemModel system = PnfJSONTranslator.CreateModel(json);
+                spec = PnfSpecCreator.CreateSpec(system);
+            }
+
+            saveFileClientSide(spec);
+
+            return new EmptyResult();
+        }
+
+        private void saveFileClientSide(StringBuilder sb)
+        {
+            var contentType = "text/plain";
+            var fileName = "alloySpecification.als";
+            var header = "attachment;Filename=" + fileName;
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.ContentType = contentType;
+            Response.AppendHeader("Content-Disposition", header);
+
+            Response.Write(sb.ToString());
+            Response.Flush();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Web;
 using ArchitectureAlloySpecGenerator.Interfaces;
 using ArchitectureAlloySpecGenerator.Models;
 
-namespace ArchitectureAlloySpecGenerator.Implementations
+namespace ArchitectureAlloySpecGenerator.Translator
 {
     public class PipeFilterSpecCreator : IPipeFilterSpecCreator
     {
@@ -26,7 +26,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
             pf_spec.Append(" extends System{}\n\n");
 
             // For each Filter:
-            foreach (Filter f in system.Servers)
+            foreach (PnfFilter f in system.Filters)
             {
                 pf_spec.Append("one sig ");
                 pf_spec.Append(f.Name);
@@ -160,18 +160,18 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                 {
                     pf_spec.Append("one sig ");
                     pf_spec.Append(o.Name);
-                    pf_spec.Append(" extends Output{}\n");
+                    pf_spec.Append(" extends Output{}\n\n");
                 }
             }
 
             // For each Input from DataSinks:
-            foreach (PnfDataSource s in system.DataSinks)
+            foreach (PnfDataSink s in system.DataSinks)
             {
                 foreach (PnfInput i in s.Inputs)
                 {
                     pf_spec.Append("one sig ");
                     pf_spec.Append(i.Name);
-                    pf_spec.Append(" extends Input{}\n");
+                    pf_spec.Append(" extends Input{}\n\n");
                 }
             }
 
@@ -183,7 +183,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                 {
                     pf_spec.Append("one sig ");
                     pf_spec.Append(i.Name);
-                    pf_spec.Append(" extends Input{}\n");
+                    pf_spec.Append(" extends Input{}\n\n");
                 }
 
                 // Outputs:
@@ -191,7 +191,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                 {
                     pf_spec.Append("one sig ");
                     pf_spec.Append(o.Name);
-                    pf_spec.Append(" extends Output{}\n");
+                    pf_spec.Append(" extends Output{}\n\n");
                 }
             }
 
@@ -202,13 +202,13 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                 {
                     pf_spec.Append("one sig ");
                     pf_spec.Append(s.Name);
-                    pf_spec.Append(" extends Source{}\n");
+                    pf_spec.Append(" extends Source{}\n\n");
                 }
                 foreach (PnfSink s in p.Sinks)
                 {
                     pf_spec.Append("one sig ");
                     pf_spec.Append(s.Name);
-                    pf_spec.Append(" extends Sink{}\n");
+                    pf_spec.Append(" extends Sink{}\n\n");
                 }
             }
 
@@ -221,7 +221,7 @@ namespace ArchitectureAlloySpecGenerator.Implementations
                 pf_spec.Append(".attachments =\n");
 
                 int attachment_count = 0;
-                foreach(KeyValuePair<Role, Port> a in system.Attachments)
+                foreach(KeyValuePair<PnfRole, PnfPort> a in system.Attachments)
                 {
                     if(attachment_count == 0)
                     {
