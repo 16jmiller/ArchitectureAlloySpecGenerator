@@ -2,8 +2,11 @@
 A web application for changing architectural models into alloy specifications.
 
 # Setup
-- To set up this project, be sure to clone the repository.
-- Next, from visual studio, click the run solution button.
+- To set up this project, download Visual Studio. 
+    We recommend installing the free community edition from https://visualstudio.microsoft.com/downloads/ 
+- Open Visual Studio, go to file > Open > Project/Solution and navigate to the solution file
+- Next, from visual studio, click the run solution button (IIS Express (Google Chrome)).
+- This should automatically open a chrome page with the address localhost:51023
 - **Make sure you are viewing the page in CHROME.**
 - Once there, you should see the canvasing page for creating diagrams.
 
